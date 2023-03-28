@@ -1,0 +1,166 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto+Slab:wght@500;600&display=swap');
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-code-font-size: 95%;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+.table-container {
+  margin: 2em 0;
+  overflow-x: auto;
+}
+
+table td {
+  white-space: nowrap;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 33.3333% 33.3333% 33.3333%;
+  color: #444;
+}
+
+@media screen and (max-width:768px){
+  .wrapper {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    color: #444;
+  }
+}
+
+.box {
+  padding: 50px 20px 20px;
+  font-size: 150%;
+}
+
+.css-69c69c {
+  background-color: hsl(153, 45%, 59%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-afebd0 {
+  background-color: hsl(153, 60%, 80%, 1);
+  color: hsla(0, 0%, 0%, 0.6);
+}
+
+.css-0688e2 {
+  background-color: hsl(205, 95%, 45%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-f14a16 {
+  background-color: hsl(14, 89%, 52%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-8e672f {
+  background-color: hsl(35, 50%, 37%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-edebf7 {
+  background-color: hsl(250, 43%, 95%, 1);
+  color: hsla(0, 0%, 0%, 0.6);
+}
+
+.css-232323 {
+  background-color: hsl(0, 0%, 14%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-3c3c3c {
+  background-color: hsl(0, 0%, 24%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-4d4d4d {
+  background-color: hsl(0, 0%, 30%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-828282 {
+  background-color: hsl(0, 0%, 51%, 1);
+  color: hsl(0, 0%, 100%);
+}
+
+.css-fafafa {
+  background-color: hsl(0, 0%, 98%, 1);
+  color: hsla(0, 0%, 0%, 0.6);
+}
+
+.css-ffffff {
+  background-color: hsl(0, 0%, 100%, 1);
+  color: hsla(0, 0%, 0%, 0.6);
+}
+
+.css-poppins h3 {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 2px;
+}
+
+.css-roboto-slab h3 {
+  font-family: "Roboto Slab", serif;
+  letter-spacing: 2px;
+}
+
+.menu__link--sublist:after {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+}

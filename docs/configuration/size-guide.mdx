@@ -1,0 +1,243 @@
+---
+sidebar_position: 2
+---
+
+# 尺寸模版
+
+```html title="Size Guide"
+<div class="measurement-popup">
+    <div class="page-width">
+        <h3 class="measurement-title">Frame Measurements</h3>
+        <div class="measurement-divider"></div>
+        <h5 class="measurement-product-title">{{ product.title }}</h5>
+        <div class="measuremnet-numbers">
+            <div><span>Frame Size:</span> {{ product.metafields.my_fields.size}}</div>
+            <div><span>Standard Measurements:</span> {{ product.metafields.my_fields.lens_width}}-{{ product.metafields.my_fields.bridge_width}}-{{ product.metafields.my_fields.temple_length}}</div>
+            <div><span>Total Frame Width:</span> {{ product.metafields.my_fields.total_width}}</div>
+        </div>
+        <div class="measurement-image-container">
+            <div class="measurement-line"></div>
+            <div class="measurement-image"><img
+            // highlight-start
+                    src="{{ product.featured_image | img_url: 'master' }}" alt="{{product.selected_or_first_available_variant.title}}"
+            // highlight-end
+                    class="measurement-image-slide">
+            </div>
+        </div>
+    </div>
+    <div class="measurement-info">
+        <div class="measurement-info-display-block">
+            <div class="measurement-info-block"><img
+                    src="//cdn.shopify.com/s/files/1/0520/1182/7369/t/1/assets/Additional-Measurements.jpg?v=6097293823818224187"
+                    class="measurement-info-image">
+                <div class="measurement-info-text">
+                    <h5>Standard Measurements</h5>
+                    <p>The measurements for most pairs of glasses are located on the inside of the temple arm. There
+                        you’ll find listed in order the lens width, bridge width, and temple arm length (49-18-140)
+                        measured in millimeters. If you already have a pair of glasses that fit you well, we recommend
+                        comparing to those measurements.</p>
+                </div>
+            </div>
+            <div class="measurement-info-block"><img
+                    src="//cdn.shopify.com/s/files/1/0520/1182/7369/t/1/assets/Lens-Width.jpg?v=5085215254946256984"
+                    class="measurement-info-image">
+                <div class="measurement-info-text">
+                    <p><span class="measurement-number-title">Lens Width:</span> {{ product.metafields.my_fields.lens_width}}mm</p>
+                    <p>The lens width is a horizontal measurement and gives you a sense of how large the frames will be.
+                        This will help you pick a frame that isn’t too wide or too narrow for your face. You’ll want
+                        your eyes to align with the center of the frame.</p>
+                </div>
+            </div>
+            <div class="measurement-info-block"><img
+                    src="//cdn.shopify.com/s/files/1/0520/1182/7369/t/1/assets/Bridge-Width.jpg?v=17067014782838610304"
+                    class="measurement-info-image">
+                <div class="measurement-info-text">
+                    <p><span class="measurement-number-title">Bridge Width:</span> {{ product.metafields.my_fields.bridge_width}}mm</p>
+                    <p>The bridge width is measured horizontally at the top of the frame. It’s the distance between the
+                        two lenses. Select a style where the bridge of the frame contours to the shape of your nose with
+                        as little gapping as possible.</p>
+                </div>
+            </div>
+            <div class="measurement-info-block"><img
+                    src="//cdn.shopify.com/s/files/1/0572/5057/8629/files/Temple-Arm-Length.jpg?v=1640165055"
+                    class="measurement-info-image">
+                <div class="measurement-info-text">
+                    <p><span class="measurement-number-title">Temple Arm Length:</span> {{ product.metafields.my_fields.temple_length}}mm</p>
+                    <p>The temple length measures the arm of the frame. It starts with the hinges and goes all the way
+                        back behind your ear.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+:::info
+如果使用产品的第二张图片，则替换为`< img src="{{ product.images[2] | img_url: '600x600' }}" alt="{{product.images[0].alt}}" />`
+:::
+
+```css title="Css"
+    .measurement-title {
+        padding: 0;font-size: 48px;
+        line-height: 56px;
+        text-align: center;
+    }
+    .measurement-divider {
+        width: 80%;
+        border-top: 1px solid #f6f6f6;
+        margin: 32px auto;
+    }
+    .measurement-product-title {
+        font-size: 30px;
+        line-height: 36px;
+        text-align: center;
+        font-family: var(--font-family-reckless);
+        color: var(--dark-green);
+        padding-bottom: 0;
+        padding-top: 10px;
+        font-weight: 500;
+        letter-spacing: .002em;
+    }
+    .measuremnet-numbers {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 30px;
+        letter-spacing: .02em;
+        color: var(--dark-green);
+    }
+
+    .measuremnet-numbers span {
+        font-weight: 700;
+        margin-right: 5px;
+    }
+    .measurement-image-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .measurement-info {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .measurement-info-block {
+        padding: 10px 0;
+        display: flex;
+    }
+    .measurement-info-image {
+        width: 45%;
+        height: 100%;
+    }
+    .measurement-info-text {
+        width: 45%;
+        margin-left: 5%;
+        display: flex;
+        text-align: left;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .measurement-info-text h5 {
+        font-size: 28px;
+        line-height: 36px;
+        color: #202020;
+        letter-spacing: .002em;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .measurement-info-text p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        letter-spacing: .04em;
+        line-height: 26px;
+        color: #404040;
+        font-weight: 500;
+    }
+
+    .measurement-line {
+        border-bottom: 1px solid #202020;
+        position: relative;
+        top: 40px;
+        margin: 0 2.5%;
+        width: 90%;
+    }
+    .measurement-line:before {
+        left: 1px;
+        border-color: #202020;
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        transform: rotate(
+    45deg);
+        width: 11px;
+        height: 11px;
+        top: -5px;
+        content: "";
+        position: absolute;
+    }
+    .measurement-line:after {
+        right: 1px;
+        border-color: #202020;
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+        transform: rotate(
+    45deg);
+        width: 11px;
+        height: 11px;
+        top: -5px;
+        content: "";
+        position: absolute;
+    }
+  
+@media only screen and (max-width: 749px){
+.measurement-title {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2em;
+    padding-top: 28px;
+}
+.measurement-product-title {
+    font-size: 24px;
+    padding-top: 0;
+    margin-bottom: 8px;
+}
+.measuremnet-numbers {
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+    line-height: 24px;
+}
+  .measurement-line {
+    top: 10px;
+    width: 90%;
+}
+  .measurement-info-block {
+    padding: 0;
+    flex-direction: column;
+}
+  .measurement-info-image {
+    width: 100%;
+}
+  .measurement-info-text {
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: 24px;
+    padding-top: 32px;
+}
+  .measurement-info-text p {
+    font-size: 14px;
+}
+  .measurement-popup{
+padding-left:0;
+padding-right:0;
+}
+}
+
+.measurement-popup{
+padding-left:10%;
+padding-right:10%;
+}
+```

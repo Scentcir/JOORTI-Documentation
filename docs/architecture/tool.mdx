@@ -1,0 +1,322 @@
+---
+sidebar_position: 3
+---
+
+# 第三方工具
+
+## LensAdvizor
+
+[**LensAdvizor**](https://www.lensadvizor.com/) is a Shopify app that helps you sell prescription lenses on your website the same way the world's leading online eyewear stores do it.
+
+```css title="Custom CSS"
+#la-select-lenses-btn {
+   height: 40px!important
+}
+.la-select-lenses-btn {
+      padding: 0 12px;
+}
+
+@media (max-width: 1024px){
+ #la-select-lenses-btn
+{
+    margin-bottom: 20px;
+    margin-right: 0px;
+}
+}
+
+.la-modal-wrapper .la_Rx_trail_logo {display:none;}
+
+
+.tab-heading{
+  text-align: left!important;
+}
+
+.la-label_button span,.text-select-prescription{
+    color:#787878!important;
+    font-size:14px;
+    letter-spacing:.5px;
+    font-weight:400;
+}
+
+.la-modal-wrapper .prescription-body::-webkit-scrollbar {
+    display:none;
+}
+
+.la-modal-wrapper .la-lens-image-container{
+    display:block;
+}
+
+.form-check-label{
+    display: -ms-flexbox;
+    display: flex!important;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.la-lens-image-container{
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+    width: 100%;
+    text-align: left;
+}
+
+.la-modal-wrapper .la-lens-image-container img{
+    width:60px!important;
+    height:auto!important;
+}
+
+.hola-1{
+    -ms-flex: 0 0 80%;
+    flex: 0 0 80%;
+    max-width: 80%;
+    width: 100%;
+    text-align: left;
+}
+
+@media (max-width: 480px){
+.hola-1{
+    padding-left:10px;
+}}
+
+.radio-pricing{
+    text-align: left!important;
+    font-weight:400;
+}
+
+.review-right{
+    text-align: right!important;
+}
+
+.la-label_button,.la-title-carousel-items-pricing{
+    text-align:left;
+}
+
+.la-modal-wrapper #label-prescription-upload, .la-modal-wrapper #prescription_upload_manually_wrapper label, .la-modal-wrapper .la_choose-options-container .la-each-card-carousel label, .la-modal-wrapper .prescription-choose-lens .form-check-label, .la-modal-wrapper .prescription-type label, .la-modal-wrapper .prescription-upload label{
+    -webkit-transition: all .6s;
+    -moz-transition: all .6s;
+    transition: all .6s;
+}
+
+.la-each-card-carousel input[type="radio"]:checked + label {
+    background: rgb(134,119,108,.10);
+}
+
+.la-label_button:hover{
+    background: rgb(134,119,108,.10);
+}
+
+.ho-3{
+    text-align:center!important;
+}
+
+.la-prescription-frame_only{
+    text-align: left!important;
+}
+
+.la-nav-item{
+    display: none!important;
+}
+
+hr{
+    display: none;
+}
+
+.review-item-title{
+    font-size:18px;
+    line-height:2;
+}
+
+.la-select-lenses-btn {
+    font-weight:500;
+}
+
+.la-modal-wrapper .subtotal{
+    font-weight:500;
+    font-size:18px;
+    margin-top:20px;
+}
+
+#la_review_orderNotes_label{
+    display:none;
+}
+
+.la-quantity-wrapper{
+    display:none!important;
+}
+
+
+.la-select-lenses-btn{
+    margin-right:25px;
+}
+
+@media (max-width: 1199px){
+    .la-select-lenses-btn{
+    margin-right:12px;
+}
+}
+
+#la-select-lenses-btn{
+    height:63px;
+}
+
+.la-quantity-selector{
+    display:none!important;
+}
+```
+
+```javascript title="Custom JS Injector"
+// Adding images to Options
+document.addEventListener('LensAdvisor:lensOptions:loaded', function(){
+	LensAdvisor.$('#la-price-option1HC,#la-price-option2HC').before("<span>Anti-Scratch</span>")
+	LensAdvisor.$('#la-price-option1HMC,#la-price-option2HMC').before("<span>Anti-Scratch;Reduce light reflection</span>")
+	LensAdvisor.$('#la-price-option1ATBL,#la-price-option2ATBL').before("<span>Anti-Scratch;Reduce light reflection;blue light blocking</span>")
+	LensAdvisor.$('#la-price-option1K-Plus,#la-price-option2K-Plus').before("<span>Anti-Scratch;Reduce light reflection;Anti-smudge, dust and water-repellent coatings.</span>")
+
+	// escaped characters
+	//LensAdvisor.$('#' + LensAdvisor.$.escapeSelector('ID_OF_CONTINER')).before('<img class="la-option-img" src="URL_TO_IMG_FILE">')
+})
+
+LensAdvisor.prototype.renderLensTypes = function () {
+    try {
+        LensAdvisor.$('#choose-lens-card').empty()
+        LensAdvisor.advisor.lensSubtotal = parseFloat(LensAdvisor.variants[LensAdvisor.selectedVariant].price)
+
+        if (this.lens_types.length == 0) {
+            LensAdvisor.$('#choose-lens-card').append(`
+                <div class="item-not-found">
+                    <p class="item-text">No Lenses Found</p>
+                    <p><button class="btn save-continue" onclick="LensAdvisor.$('.js-back-button').click()">Try Again</buttom>
+                </div>
+            `)
+            return false;
+        }
+
+        const groups = ['clear_standard', 'clear_bluelight_blocking', 'clear_photochromic', 'tinted_polorised', 'tinted_non_polorised']
+        this.group_lens = [];
+
+        var addOnPrice = 0.0
+
+        for (let i=0; i < groups.length; i++) {
+            let group_name = groups[i]
+            let group_lens = this.lens_types.filter(function(obj) {
+                return obj.group_type === group_name
+            })
+
+            if (group_lens.length === 0) {
+                continue
+            }
+
+            this.group_lens.push(group_name)
+
+            item_group = this.item_groups[this.responses.prescription_type][group_name]
+
+            let content = `<div class="choose-lens-card">
+                <h6 ${item_group.description ? 'class="mb-3"' : ''}>${item_group.title}</h6>
+                ${item_group.description ? `<p>${item_group.description}</p>` : ''}
+            <div>`
+
+            for (let i=0; i < group_lens.length; i++) {
+                let lens = group_lens[i]
+                if (LensAdvisor.advisor.defaultCurrency && LensAdvisor.advisor.defaultCurrency != "" && LensAdvisor.advisor.defaultCurrency != Shopify.currency.active) {
+                    lens.price = LensAdvisor.Currency.convert(parseInt(lens.price.toString().replace(/[^0-9]/g, ''), 10), LensAdvisor.advisor.defaultCurrency, Shopify.currency.active);
+                    lens.variants.forEach(function (obj, index) {
+                        obj.price = LensAdvisor.Currency.convert(parseInt(parseFloat(obj.price).toString().replace(/[^0-9]/g, ''), 10), LensAdvisor.advisor.defaultCurrency, Shopify.currency.active)
+                    })
+                }
+                let lens_variant = lens.variants[0]
+
+                if (this.responses.lens === lens.id || lens.default ) {
+                    this.responses.lens = lens
+                    this.responses.lens_variant = lens_variant
+                    checked = 'checked'
+                    addOnPrice += lens.price
+                } else {
+                    checked = ''
+                }
+
+                // let lens_price = parseFloat(lens_variant.price) == 0 ?  LensAdvisor.$('#la-free-text').html() : LensAdvisor.formatCurrency(parseFloat(lens_variant.price))
+                // Updating above statement to test for if options exist, and if they do, then add "starting from" text to the front of the price
+                let lens_price = parseFloat(lens_variant.price)
+                if (lens_variant.price == 0) {
+                    lens_price = LensAdvisor.getTranslatedText("FREE")
+                } else {
+                    if (lens.variants.length > 1 && LensAdvisor.is_multiple_options_allowed){
+                        lens_price = LensAdvisor.$('#la-chooseLens-startingFrom-text').html() + LensAdvisor.formatCurrency(parseFloat(lens_variant.price))
+                    } else {
+                        lens_price = LensAdvisor.formatCurrency(parseFloat(lens_variant.price))
+                    }
+                }
+
+                content += `<div class="form-check">
+                    <input class="form-check-input la-radio-lenses mt-3" type="radio" name="lens-${lens.prescription_type}" id="${lens.group_type}-${lens.id}" value="${lens.id}" price="${lens_variant.price}" group_type="${lens.group_type}" checked onclick="LensAdvisor.handleLensChange(this)">
+                    <label class="la-label_button form-check-label form-check-label-color" for="${lens.group_type}-${lens.id}">
+                        
+                    ${lens.default_image ? `<div class="la-lens-image-container"><img src="${lens.default_image.src}" /></div>`: ''}
+                      <div class="hola-1">    
+                      ${lens.name}
+                      ${lens.description ? `<div class="la-lens-description">${lens.description}</div>`: ''}
+                      <div class="radio-pricing" id="radio_pricing_normal_style">${lens_price}</div></div>
+                    </label>
+                </div>`
+            }
+
+            content += `</div></div>`
+
+            LensAdvisor.$('#choose-lens-card').append(content)
+        }
+
+        LensAdvisor.advisor.lensSubtotal += addOnPrice
+
+        LensAdvisor.advisor.lensSubtotal = LensAdvisor.advisor.lensSubtotal.toFixed(LensAdvisor.DECIMAL_POINTS)
+
+        LensAdvisor.$('#lens-subtotal').html(LensAdvisor.formatCurrency(parseFloat(LensAdvisor.advisor.lensSubtotal)))
+
+        if (this.lens_types.length === 1 && this.settings.skipPrescriptionLenses) {
+            LensAdvisor.$('.la-radio-lenses').click()
+            setTimeout(function () {
+                LensAdvisor.$('.js-back-button').show()
+            })
+        }
+        LensAdvisor.addCSSToUL()
+    } catch (error) {
+        LensAdvisor.error_loading = true
+    } 
+}
+```
+
+
+## Tidio
+
+[**Tidio**](https://www.tidio.com/) lets you get all your live chat, e-mail, and Messenger communication in one panel. Save time with our free mobile app as well.
+
+## AVADA SEO: Image Optimizer
+
+[**AVADA SEO**](https://avada.io/) Suite is a comprehensive SEO optimization tool for SEO
+
+## SNPT
+
+[**Snapppt**](https://www.getsnapppt.com/) Social Marketing Cloud provides simple tools for brands, Influencers and agencies helping them reach more customers on social, turn them into fans that buy more and tell their friends.
+
+## PageFly
+
+[**PageFly**](https://pagefly.io/) is a highly-efficient tool to create well-designed pages to drive sales for your online store.
+
+## Yotpo
+
+[**Yotpo**](https://www.yotpo.com/)'s eCommerce marketing platform offers the most advanced solutions for customer reviews, visual marketing, loyalty, referrals, and SMS marketing.
+
+## Google Analytics
+
+```js title="Google Analytics"
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-XXXXXXX-1');
+</script>
+```
+
+## Facebook Pixel
